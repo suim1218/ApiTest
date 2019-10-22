@@ -1,0 +1,48 @@
+{% extends "case_base.html" %}
+{% block case_base %}
+<h3 class="sub-header">用例列表
+
+                    <button type="button" class="btn btn-sm btn-primary" style="float: right;"
+                            onclick="location.href='/add_case/'">创建
+                    </button>
+                </h3>
+                <div id="navbar" class="navbar-collapse collapse">
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <!--<th>所属项目/模块</th>-->
+                            <th>名称</th>
+                            <th>URL</th>
+                            <th>创建时间</th>
+                            <th>修改时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for case in cases %}
+                            <tr>
+                                <td>{{ case.id }}</td>
+                                <td>{{ case.name }}</td>
+                                <td>{{ case.url }}</td>
+                                <td>{{ case.create_time | date:"Y-m-d H:i:s" }}</td>
+                                <td>{{ case.update_time | date:"Y-m-d H:i:s" }}</td>
+
+                                <td>
+                                    <a href="/edit_case/{{ case.id }}/">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                    <a href="/delete_case/{{ case.id }}/" style="margin-left: 10px;">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+{% endblock %}

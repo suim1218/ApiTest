@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block base %}
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">接口测试平台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          贤心
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+  </div>
+
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item ">
+          <a class="" href="javascript:;">项目</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/project_list/">项目列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">模块</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/module_list/">模块列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">用例</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/case_list/">用例列表</a></dd>
+          </dl>
+        </li>
+         <li class="layui-nav-item">
+          <a href="javascript:;">环境</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/environment_list/">环境列表</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+    {% block case_base %}
+
+    {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

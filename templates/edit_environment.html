@@ -1,0 +1,63 @@
+{% extends "environment_base.html" %}
+{% block environment_base %}
+<div class="fbneirong">
+
+    <div class="form-horizontal" id="add_environment">
+        <div class="form-group  has-feedback">
+            <label class="control-label col-md-1 text-primary" for="environment_name">环境名称：</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="environment_name"
+                       aria-describedby="inputSuccess3Status" name="environment_name" placeholder="请输入环境名称"
+                       value="">
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label class="control-label col-md-1 text-primary" for="environment_address">地址：</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="environment_address"
+                       aria-describedby="inputSuccess3Status" name="environment_address" placeholder="请输入环境地址"
+                       value="">
+            </div>
+        </div>
+        <div class="am-form-group am-cf">
+            <div class="you" style="margin-left: 8.5%;">
+                <button type="button" class="btn btn-primary" id="send"
+                        onclick="saveFun()"> 点 击 提 交
+                </button>
+            </div>
+        </div>
+</div>
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+<script type="text/javascript">
+EnvironmentInit();
+//保存
+    function saveFun() {
+
+        //接口的基本数据
+        var local_url = document.location;
+        var id = local_url.pathname.split("/")[2];
+        var environment_name = $("#environment_name").val();
+        var environment_address = $("#environment_address").val();
+
+        $.post("/save_environment/", {
+            eid:id,
+            environment_name: environment_name,
+            environment_address: environment_address,
+
+
+        }, function (data) {
+             console.log("返回的结果", data.message);
+            if (data.message === "保存成功"){
+                window.location.href = '/environment_list/';
+
+            }
+
+        });
+    }
+</script>
+{% endblock %}
