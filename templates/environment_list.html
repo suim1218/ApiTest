@@ -14,6 +14,7 @@
             <th>地址</th>
             <th>创建时间</th>
             <th>修改时间</th>
+            <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -25,12 +26,25 @@
             <td>{{ environment.address }}</td>
             <td>{{ environment.create_time | date:"Y-m-d H:i:s" }}</td>
             <td>{{ environment.update_time | date:"Y-m-d H:i:s" }}</td>
+
+                {% if environment.status == 0 %}
+							<td>已停用</td>
+							{% endif %}
+
+							{% if environment.status == 1 %}
+							<td>已开启</td>
+							{% endif %}
+
+
             <td>
                 <a href="/edit_environment/{{ environment.id }}/">
                     <i class="glyphicon glyphicon-pencil"></i>
                 </a>
                 <a href="/delete_environment/{{ environment.id }}/" style="margin-left: 10px;">
                     <i class="glyphicon glyphicon-trash"></i>
+                </a>
+                <a href="/on_off/{{ environment.id }}/" style="margin-left: 10px;">
+                    <i class="glyphicon glyphicon-off"></i>
                 </a>
             </td>
         </tr>

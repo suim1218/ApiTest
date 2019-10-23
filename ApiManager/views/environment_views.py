@@ -51,8 +51,8 @@ def get_environment_info(request):
     if request.method == "POST":
         eid = request.POST.get("eid", "")
         environment = Environment.objects.get(id=eid)
-        print("========================")
-        print(eid)
+        # print("========================")
+        # print(eid)
         environment_dict = {
             "id": environment.id,
             "name": environment.name,
@@ -82,8 +82,24 @@ def save_environment(request):
         environment_name = request.POST.get("environment_name", "")
         environment_address = request.POST.get("environment_address", "")
 
-        environment= Environment.objects.get(id=eid)
+        environment = Environment.objects.get(id=eid)
         environment.name = environment_name
         environment.address = environment_address
         environment.save()
         return JsonResponse({"status": 10200, "message": "保存成功"})
+
+
+def on_off(request, eid):
+    """
+    开关
+    """
+    environment = Environment.objects.get(id=eid)
+    # print(environment.status)
+    # print(type(environment.status))
+    if environment.status == 1:
+        environment.status = 0
+        environment.save()
+    else:
+        environment.status = 1
+        environment.save()
+    return HttpResponseRedirect("/environment_list/")

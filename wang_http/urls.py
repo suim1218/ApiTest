@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ApiManager.views import project_views, module_views, case_views, environment_views
+from ApiManager.views import project_views, module_views, case_views, environment_views,run_task_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,9 @@ urlpatterns = [
     path('edit_project/<int:pid>/', project_views.edit_project),
     path('save_project/', project_views.save_project),
     path('get_project_info/', project_views.get_project_info),
+    path('project_module_list/<int:pid>/', project_views.project_module_list),
+    path('project_module_case_list/<int:mid>/', project_views.project_module_case_list),
+
 
     # 模块操作
     path('module_list/', module_views.module_list),
@@ -42,7 +45,9 @@ urlpatterns = [
     path('case_list/', case_views.case_list),
     path('add_case/', case_views.add_case),
     path('case_debug/', case_views.case_debug),
-
+    path('case_assert/', case_views.case_assert),
+    path('get_case_info/', case_views.get_case_info),
+    path('edit_case/<int:eid>/', case_views.edit_case),
 
     # 环境操作
     path('environment_list/', environment_views.environment_list),
@@ -51,6 +56,11 @@ urlpatterns = [
     path('get_environment_info/', environment_views.get_environment_info),
     path('edit_environment/<int:eid>/', environment_views.edit_environment),
     path('save_environment/', environment_views.save_environment),
+    path('on_off/<int:eid>/', environment_views.on_off),
 
+
+    # 运行用例
+    path('run_case/<int:pid>/', run_task_views.run_case),
+    # path('get_case/', run_case_views.get_case),
 
 ]

@@ -105,7 +105,7 @@
 <script type="text/javascript">
 
 //初始化项目和模块select
-SelectInit();
+TestCaseInit();
     //发送方法
     function sendFun() {
         var environment_id = $("#selectEnvironment").val();
@@ -155,6 +155,8 @@ SelectInit();
 
     //保存用例
     function saveFun() {
+        var local_url = document.location;
+        var cid = local_url.pathname.split("/")[3];
         var module_id = $('select[id="selectModule"]').val();
         //接口的基本数据
         var case_name = $("#case_name").val();
@@ -183,6 +185,7 @@ SelectInit();
         }
 
         $.post("/add_case/", {
+            cid: cid,
             module_id:module_id,
             case_name: case_name,
             url: url,

@@ -1,7 +1,7 @@
 from django.contrib import auth
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, render_to_response
-from ApiManager.models import Project, Module
+from ApiManager.models import Project, Module, TestCase
 
 import logging
 
@@ -19,6 +19,7 @@ def project_list(request):
     """
     项目列表页
     """
+
     project_all = Project.objects.all()
     return render(request, 'project_list.html', {"projects": project_all,
                                                  })
@@ -97,3 +98,28 @@ def save_project(request):
         return JsonResponse({"status": 10200, "message": "保存成功"})
 
 
+def project_module_list(request, pid):
+    """
+    展示项目/模块列表页
+    """
+    # project_obj = Project.objects.get(id=pid)
+    # module = Module.objects.get(project_id=pid)
+    modules = Module.objects.filter(project_id=pid)
+    # cases_num = None
+    # for i in modules:
+    #     # print(i.name)
+    #     cases = TestCase.objects.filter(module_id=i.id)
+    #     cases_num = len(cases)
+
+    return render(request, 'project_module_list.html', {"modules": modules})
+
+
+def project_module_case_list(request, mid):
+    """
+    展示项目/模块/用例列表页
+    """
+    module = Module.objects.get(id=mid)
+    project_id = module.project_id
+    project = Project.objects.get(id=project_id)
+    cases = TestCase.objects.filter(module_id=mid)
+    return render(request, 'project_module_case_list.html', {"cases": cases, "project": project, "module": module})

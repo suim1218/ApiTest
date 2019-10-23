@@ -1,0 +1,20 @@
+{
+    "first": {
+        "url": "project_list",
+        "method": "get",
+        "header": "{}",
+        "parameter_type": "form",
+        "parameter_body": "{}",
+        "assert_type": "contains",
+        "assert_text": "aa"
+    },
+    "second": {
+        "url": "project_list",
+        "method": "get",
+        "header": "{}",
+        "parameter_type": "form",
+        "parameter_body": "{}",
+        "assert_type": "contains",
+        "assert_text": "项目列表"
+    }
+}

@@ -22,7 +22,11 @@
         {% for project in projects %}
             <tr>
                 <td>{{ project.id }}</td>
-                <td>{{ project.name }}</td>
+                <td >
+                <a style="color:red" href="/project_module_list/{{ project.id }}/">
+                    {{ project.name }}
+                </a>
+                </td>
                 <td>{{ project.describe }}</td>
                 <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                 <td>{{ project.update_time | date:"Y-m-d H:i:s" }}</td>
@@ -33,11 +37,39 @@
                     <a href="/delete_project/{{ project.id }}/" style="margin-left: 10px;">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
+                    <a href="/run_case/{{ project.id }}/"  style="margin-left: 10px;">
+                            <span class="glyphicon glyphicon-play"></span>
+                    </a>
+
+                    <a href="result/{{task.id}}/" style="margin-left: 10px;">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
 
+	//发送方法
+	function runTask() {
+		console.log("运行任务的id", tid);
+
+		$.post("/testtask/run_task/",
+		{
+			task_id: tid
+		},
+		function (resp) {
+		    if(resp.status == 10200){
+		        window.alert(resp.message);
+				window.location.reload();  // 刷新页面
+			}
+
+		});
+
+	};
+
+
+</script>
 {% endblock %}
