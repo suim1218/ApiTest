@@ -68,6 +68,12 @@ ModuleInit();
 
             <!--window.location.href = '';-->
             }
+            if (data.message === "模块名称不能为空"){
+                alert(data.message);
+            }
+            if (data.message === "模块名称不能超过50个字符"){
+                alert(data.message);
+            }
 
         });
     }

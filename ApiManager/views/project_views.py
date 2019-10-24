@@ -32,8 +32,14 @@ def add_project(request):
     if request.method == "GET":
         return render(request, "add_project.html")
     if request.method == "POST":
+
         project_name = request.POST.get("project_name", "")
         simple_desc = request.POST.get("simple_desc", "")
+        if project_name == "":
+            return JsonResponse({"mes": "项目名称不能为空"})
+        if len(project_name) > 50:
+            return JsonResponse({"mes": "项目名称不能超过50个字符"})
+
         Project.objects.create(name=project_name, describe=simple_desc)
         return JsonResponse({"mes": "添加成功"})
 
@@ -90,12 +96,20 @@ def save_project(request):
         pid = request.POST.get("pid", "")
         project_name = request.POST.get("project_name", "")
         simple_desc = request.POST.get("simple_desc", "")
+        if project_name == "":
+            return JsonResponse({"mes": "项目名称不能为空"})
+        if len(project_name) > 50:
+            return JsonResponse({"mes": "项目名称不能超过50个字符"})
 
-        p = Project.objects.get(id=pid)
-        p.name = project_name
-        p.describe = simple_desc
-        p.save()
-        return JsonResponse({"status": 10200, "message": "保存成功"})
+        try:
+            p = Project.objects.get(id=pid)
+        except Project.DoesNotExist:
+            return JsonResponse({"message": "项目不存在"})
+        else:
+            p.name = project_name
+            p.describe = simple_desc
+            p.save()
+            return JsonResponse({"message": "保存成功"})
 
 
 def project_module_list(request, pid):

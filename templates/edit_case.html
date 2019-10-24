@@ -15,10 +15,9 @@
             style="width: 180px">
     </select>
     <label style="float: left">环境：</label>
-    <select class="form-control select2-single" id="selectEnvironment" style="width: 180px">
-    {% for environment in environments %}
-        <option id="environmentName" value="{{ environment.id }}">{{ environment.name }}</option>
-    {% endfor %}
+    <select class="form-control select2-single" id="selectEnvironment"
+            style="width: 180px">
+    </select>
 </select>
 </div>
 <div class="input-group" style="top:10px">
@@ -155,6 +154,7 @@ TestCaseInit();
 
     //保存用例
     function saveFun() {
+        var environment_id = $("#selectEnvironment").val();
         var local_url = document.location;
         var cid = local_url.pathname.split("/")[3];
         var module_id = $('select[id="selectModule"]').val();
@@ -185,6 +185,7 @@ TestCaseInit();
         }
 
         $.post("/add_case/", {
+            environment_id:environment_id,
             cid: cid,
             module_id:module_id,
             case_name: case_name,

@@ -103,7 +103,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script type="text/javascript">
-
 //初始化项目和模块select
 SelectInit();
     //发送方法
@@ -114,9 +113,6 @@ SelectInit();
         var header = $("#header").val();
         var type = $('input[name="par_type"]:checked').val();
         var parameter = $("#parameter").val();
-
-
-
         $.post("/case_debug/", {
             environment_id:environment_id,
             url: url,
@@ -128,7 +124,6 @@ SelectInit();
             document.querySelector("#result").value = resp.result;
         });
     }
-
     //断言方法
     function assertFun() {
         var assert_type = $('input[name="assert_type"]:checked').val();
@@ -137,12 +132,10 @@ SelectInit();
         console.log("断言的类型额", assert_type);
         console.log("得到的结果", result_text);
         console.log("断言的结果", assert_text);
-
         if (result_text === "" || assert_text === "") {
             window.alert("要断言的文本不能为空");
             return;
         }
-
         $.post("/case_assert/", {
             result: result_text,
             assert: assert_text,
@@ -152,7 +145,6 @@ SelectInit();
             console.log("返回的结果", data.result);
         });
     }
-
     //保存用例
     function saveFun() {
         var module_id = $('select[id="selectModule"]').val();
@@ -163,13 +155,9 @@ SelectInit();
         var header = $("#header").val();
         var parameter_type = $('input[name="par_type"]:checked').val();
         var parameter_body = $("#parameter").val();
-
         // 断言的数据
         var assert_type = $('input[name="assert_type"]:checked').val();
         var assert_text = $("#assert").val();
-
-
-
         if (url === "") {
             window.alert("URL不能为空！");
             return;
@@ -181,7 +169,6 @@ SelectInit();
             window.alert("用例名称不能为空！");
             return;
         }
-
         $.post("/add_case/", {
             module_id:module_id,
             case_name: case_name,
@@ -192,7 +179,6 @@ SelectInit();
             par_body: parameter_body,
             ass_type: assert_type,
             ass_text: assert_text,
-
         }, function (data) {
             console.log("返回的结果", data);
             window.alert(data.message);

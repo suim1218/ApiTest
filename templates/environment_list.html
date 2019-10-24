@@ -43,14 +43,51 @@
                 <a href="/delete_environment/{{ environment.id }}/" style="margin-left: 10px;">
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>
-                <a href="/on_off/{{ environment.id }}/" style="margin-left: 10px;">
+                <a href="#" onclick="onOffFun('{{environment.id}}')" style="margin-left: 10px;">
                     <i class="glyphicon glyphicon-off"></i>
                 </a>
+
+                <!--<button style="margin-left: 10px;" type="button" class="glyphicon glyphicon-off" id="send"-->
+                        <!--onclick="onOffFun('{{environment.id}}'))">-->
+                <!--</button>-->
+
             </td>
         </tr>
     {% endfor %}
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
 
+    //保存
+    function onOffFun(eid) {
+
+        //接口的基本数据
+
+
+        $.post("/on_off/", {
+
+            eid:eid
+
+        }, function (data) {
+            console.log("返回的结果", data.message);
+                if(data.message === "当前已有环境开启,请关闭开启的环境"){
+		        window.alert(data.message);
+				<!--window.location.reload();  // 刷新页面-->
+			}
+
+			if(data.message === "开启成功"){
+
+				window.location.href = '/environment_list/';  // 刷新页面
+			}
+
+			if(data.message === "环境已停用"){
+				window.location.href = '/environment_list/';
+			}
+
+
+
+        });
+    }
+</script>
 {% endblock %}

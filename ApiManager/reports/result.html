@@ -191,9 +191,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>接口测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2019-10-23 17:50:58</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00</p>
-<p class='attribute'><strong>Status:</strong> Error 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2019-10-24 13:39:33</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:08.073126</p>
+<p class='attribute'><strong>Status:</strong> Pass 2</p>
 
 <p class='description'>Implementation Example with: </p>
 </div>
@@ -223,63 +223,31 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='errorClass'>
-    <td>unittest.loader._FailedTest</td>
-    <td>1</td>
+<tr class='passClass'>
+    <td>tasks.run_task.InterfaceTest</td>
+    <td>2</td>
+    <td>2</td>
     <td>0</td>
     <td>0</td>
-    <td>1</td>
-    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+    <td><a href="javascript:showClassDetail('c1',2)">Detail</a></td>
 </tr>
 
-<tr id='ft1.1' class='none'>
-    <td class='errorCase'><div class='testcase'>run_task</div></td>
-    <td colspan='5' align='center'>
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_run_cases_00001_10: test_run_cases_00001_10</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
 
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        error</a>
-
-    <div id='div_ft1.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft1.1: ImportError: Failed to import test module: tasks.run_task
-Traceback (most recent call last):
-  File "C:\Users\EDZ\AppData\Local\Programs\Python\Python36\lib\unittest\loader.py", line 428, in _find_test_path
-    module = self._get_module_from_name(name)
-  File "C:\Users\EDZ\AppData\Local\Programs\Python\Python36\lib\unittest\loader.py", line 369, in _get_module_from_name
-    __import__(name)
-  File "C:\Users\EDZ\Desktop\wang_http\tasks\run_task.py", line 6, in &lt;module&gt;
-    from ApiManager.models import Project, Module, Environment
-  File "C:\Users\EDZ\Desktop\wang_http\ApiManager\models.py", line 7, in &lt;module&gt;
-    class BaseTable(models.Model):
-  File "C:\Users\EDZ\AppData\Local\Programs\Python\Python36\lib\site-packages\django\db\models\base.py", line 100, in __new__
-    app_config = apps.get_containing_app_config(module)
-  File "C:\Users\EDZ\AppData\Local\Programs\Python\Python36\lib\site-packages\django\apps\registry.py", line 244, in get_containing_app_config
-    self.check_apps_ready()
-  File "C:\Users\EDZ\AppData\Local\Programs\Python\Python36\lib\site-packages\django\apps\registry.py", line 127, in check_apps_ready
-    raise AppRegistryNotReady("Apps aren't loaded yet.")
-django.core.exceptions.AppRegistryNotReady: Apps aren't loaded yet.
-
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_run_cases_00002_11: test_run_cases_00002_11</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='total_row'>
     <td>Total</td>
-    <td>1</td>
-    <td class="text text-success">0</td>
+    <td>2</td>
+    <td class="text text-success">2</td>
     <td class="text text-danger">0</td>
-    <td class="text text-warning">1</td>
+    <td class="text text-warning">0</td>
     <td>&nbsp;</td>
 </tr>
 </table>

@@ -1,4 +1,4 @@
-//获取用例信息
+//获取环境信息
 var EnvironmentInit = function () {
 
     var url = document.location;
@@ -21,6 +21,7 @@ var EnvironmentInit = function () {
     });
 
 }
+
 
 
 

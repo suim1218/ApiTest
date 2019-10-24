@@ -26,7 +26,7 @@ class TestCaseAdmin(admin.ModelAdmin):
     """
     用例
     """
-    list_display = ['name', 'belong_project', 'create_time', 'module']
+    list_display = ['name',  'create_time', 'module']
     search_fields = ['name']
 
 

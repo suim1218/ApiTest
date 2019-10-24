@@ -89,17 +89,42 @@ def save_environment(request):
         return JsonResponse({"status": 10200, "message": "保存成功"})
 
 
-def on_off(request, eid):
+def on_off(request):
     """
     开关
     """
-    environment = Environment.objects.get(id=eid)
-    # print(environment.status)
-    # print(type(environment.status))
-    if environment.status == 1:
-        environment.status = 0
-        environment.save()
+    if request.method == "POST":
+        eid = request.POST.get("eid", "")
+        # print(eid)
+        environment = Environment.objects.get(id=eid)
+        # print(environment.status)
+        # print(type(environment.status))
+        if environment.status == 1:
+            environment.status = 0
+            environment.save()
+            return JsonResponse({"message": "环境已停用"})
+
+        if environment.status == 0:
+            environment_all = Environment.objects.all()
+            for i in environment_all:
+                if i.status == 1:
+                    return JsonResponse({"message": "当前已有环境开启,请关闭开启的环境"})
+                else:
+                    environment.status = 1
+                    environment.save()
+                    return JsonResponse({"message": "开启成功"})
     else:
-        environment.status = 1
-        environment.save()
-    return HttpResponseRedirect("/environment_list/")
+        return JsonResponse({"message": "请求方法错误"})
+
+
+def get_environment_url():
+    """
+    获取当前开启的环境address
+    :return:
+    """
+    environment_all = Environment.objects.all()
+    for environment in environment_all:
+        if environment.status == 1:
+            return environment.address
+        else:
+            pass

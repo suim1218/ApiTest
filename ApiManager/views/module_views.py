@@ -29,7 +29,13 @@ def add_module(request):
         module_name = request.POST.get("module_name", "")
         simple_desc = request.POST.get("simple_desc", "")
         pid = request.POST.get("pid", "")
+        if module_name == "":
+            return JsonResponse({"message": "模块名称不能为空"})
+        if len(module_name) > 50:
+            return JsonResponse({"message": "模块名称不能超过50个字符"})
+
         # print(module_name,simple_desc,pid)
+
         Module.objects.create(name=module_name, describe=simple_desc, project_id=pid)
         return JsonResponse({"message": "添加成功"})
 
@@ -120,11 +126,18 @@ def save_module(request):
         module_name = request.POST.get("module_name", "")
         simple_desc = request.POST.get("simple_desc", "")
         pid = request.POST.get("pid", "")
+        if module_name == "":
+            return JsonResponse({"message": "模块名称不能为空"})
+        if len(module_name) > 50:
+            return JsonResponse({"message": "模块名称不能超过50个字符"})
         # print(pid)
-
-        m = Module.objects.get(id=mid)
-        m.name = module_name
-        m.describe = simple_desc
-        m.project_id = pid
-        m.save()
-        return JsonResponse({"status": 10200, "message": "保存成功"})
+        try:
+            m = Module.objects.get(id=mid)
+        except Module.DoesNotExist:
+            return JsonResponse({"message": "模块不存在"})
+        else:
+            m.name = module_name
+            m.describe = simple_desc
+            m.project_id = pid
+            m.save()
+            return JsonResponse({"status": 10200, "message": "保存成功"})

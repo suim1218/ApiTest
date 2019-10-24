@@ -37,13 +37,9 @@
                     <a href="/delete_project/{{ project.id }}/" style="margin-left: 10px;">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
-                    <a href="/run_case/{{ project.id }}/"  style="margin-left: 10px;">
-                            <span class="glyphicon glyphicon-play"></span>
-                    </a>
-
-                    <a href="result/{{task.id}}/" style="margin-left: 10px;">
-                            <span class="glyphicon glyphicon-list-alt"></span>
-                    </a>
+                    <a href="#" onclick="runTask('{{project.id}}')" style="margin-left: 10px;">
+                    <i class="glyphicon glyphicon-play"></i>
+                </a>
                 </td>
             </tr>
         {% endfor %}
@@ -52,24 +48,24 @@
 </div>
 <script type="text/javascript">
 
-	//发送方法
-	function runTask() {
-		console.log("运行任务的id", tid);
+    //保存
+    function runTask(pid) {
 
-		$.post("/testtask/run_task/",
-		{
-			task_id: tid
-		},
-		function (resp) {
-		    if(resp.status == 10200){
-		        window.alert(resp.message);
-				window.location.reload();  // 刷新页面
+        //接口的基本数据
+
+        window.alert("任务执行中，点击确定按钮任务在后台执行，执行完成会有提示");
+        $.post("/run_project_task/", {
+
+            pid:pid
+
+        }, function (data) {
+            console.log("返回的结果", data.message);
+
+                if(data.message === "运行完成，请查看测试报告"){
+		        window.alert(data.message);
+				<!--window.location.reload();  // 刷新页面-->
 			}
-
-		});
-
-	};
-
-
+        });
+    }
 </script>
 {% endblock %}

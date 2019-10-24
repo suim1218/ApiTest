@@ -209,3 +209,19 @@ def get_case_info(request):
 
     else:
         return JsonResponse({"status": 10100, "message": "请求方法错误"})
+
+
+def delete_case(request, cid):
+    """
+    删除用例
+    """
+    if request.method == "GET":
+        try:
+            testcase = TestCase.objects.get(id=cid)
+        except TestCase.DoesNotExist:
+            return HttpResponseRedirect("/case_list/")
+        else:
+            testcase.delete()
+        return HttpResponseRedirect("/case_list/")
+    else:
+        return HttpResponseRedirect("/case_list/")

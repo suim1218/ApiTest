@@ -48,8 +48,12 @@
             console.log("返回的结果", data.mes);
             if (data.mes === "添加成功"){
                 window.location.href = '/project_list/';
-
-            <!--window.location.href = '';-->
+            }
+            if (data.mes === "项目名称不能为空"){
+                alert(data.mes);
+            }
+            if (data.mes === "项目名称不能超过50个字符"){
+                alert(data.mes);
             }
 
         });

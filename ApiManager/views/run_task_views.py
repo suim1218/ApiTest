@@ -1,7 +1,8 @@
-from ApiManager.models import Project, Module, TestCase, TestTask
+from ApiManager.models import Project, Module, TestCase
 import json
 import os
 from wang_http import settings
+from django.http import HttpResponseRedirect, JsonResponse
 
 BASE_PATH = settings.BASE_DIR.replace("\\", "/")
 
@@ -9,7 +10,7 @@ EXTEND_DIR = BASE_PATH + "/tasks/"
 RUN_TASK = BASE_PATH + "/ApiManager/views/"
 
 
-def write_case_data(pid):
+def write_project_case_data(pid):
     modules = Module.objects.filter(project_id=pid)
 
     for module in modules:
@@ -55,9 +56,19 @@ def write_case_data(pid):
                 f.write(case_data)
 
 
-def run_case(request, pid):
-    write_case_data(pid)
-    run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
-    print("运行的命令", run_cmd)
-    os.system(run_cmd)
-    # sleep(2)
+def run_project_task(request):
+    if request.method == "POST":
+        pid = request.POST.get("pid", "")
+        print(pid)
+        write_project_case_data(pid)
+        run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
+        print("运行的命令", run_cmd)
+        os.system(run_cmd)
+        # sleep(2)
+
+        project = Project.objects.get(id=pid)
+        project.status = 2
+        project.save()
+        return JsonResponse({"message": "运行完成，请查看测试报告"})
+
+

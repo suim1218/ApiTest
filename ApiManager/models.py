@@ -36,6 +36,7 @@ class Project(BaseTable):
 
     name = models.CharField("名称", max_length=50, null=False)
     describe = models.TextField("描述", default="")
+    status = models.IntegerField("状态：", default=0)  # 0未执行、1执行完成
 
     def __str__(self):
         return self.name
@@ -54,6 +55,8 @@ class Module(BaseTable):
     name = models.CharField("名称", max_length=50, null=False)
     describe = models.TextField("描述", default="")
 
+    # status = models.IntegerField("状态：", default=0)  # 0未执行、1执行中、2执行完成、3排队中
+
     def __str__(self):
         return self.name
 
@@ -67,7 +70,6 @@ class TestCase(BaseTable):
         verbose_name = '用例信息'
         verbose_name_plural = verbose_name
 
-    belong_project = models.CharField('所属项目', max_length=50, null=False)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     name = models.CharField("名称", max_length=50, null=False)
     # status = models.BooleanField("状态", default=True)   # 控制用例的删除
@@ -80,6 +82,7 @@ class TestCase(BaseTable):
     result = models.TextField("结果", null=False)
     assert_type = models.IntegerField("断言类型", null=False)  # 1：包含contains 2: 匹配mathches
     assert_text = models.TextField("结果", null=False)
+    # environment_id = models.IntegerField("环境id", null=False)
 
     def __str__(self):
         return self.name
@@ -94,28 +97,28 @@ class Environment(BaseTable):
         verbose_name = '环境'
         verbose_name_plural = verbose_name
 
+    # environment = models.ForeignKey(TestCase)
     name = models.CharField("名称", max_length=50, null=False)
     address = models.CharField("地址", max_length=50, null=False)
-    status = models.IntegerField("状态：", default=1)  # 1开启 0停用
+    status = models.IntegerField("状态：", default=0)  # 1开启 0停用
 
     def __str__(self):
         return self.name
 
-
-class TestTask(models.Model):
-    """
-    任务表
-    """
-
-    class Meta:
-        verbose_name = '任务'
-        verbose_name_plural = verbose_name
-
-    name = models.CharField("名称", max_length=100, blank=False, default="")
-    describe = models.TextField("描述", default="")
-    status = models.IntegerField("状态：", default=0)  # 未执行、执行中、执行完成、排队中
-    cases = models.TextField("关联用例", default="")
-    create_time = models.DateTimeField("创建时间", auto_now_add=True)
-
-    def __str__(self):
-        return self.name
+# class TestTask(models.Model):
+#     """
+#     任务表
+#     """
+#
+#     class Meta:
+#         verbose_name = '任务'
+#         verbose_name_plural = verbose_name
+#
+#     name = models.CharField("名称", max_length=100, blank=False, default="")
+#     describe = models.TextField("描述", default="")
+#     status = models.IntegerField("状态：", default=0)  # 0未执行、1执行中、2执行完成、3排队中
+#     cases = models.TextField("关联用例", default="")
+#     create_time = models.DateTimeField("创建时间", auto_now_add=True)
+#
+#     def __str__(self):
+#         return self.name
