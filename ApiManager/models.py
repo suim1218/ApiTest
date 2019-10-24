@@ -82,7 +82,7 @@ class TestCase(BaseTable):
     result = models.TextField("结果", null=False)
     assert_type = models.IntegerField("断言类型", null=False)  # 1：包含contains 2: 匹配mathches
     assert_text = models.TextField("结果", null=False)
-    # environment_id = models.IntegerField("环境id", null=False)
+    environment = models.IntegerField("环境id", null=False)
 
     def __str__(self):
         return self.name

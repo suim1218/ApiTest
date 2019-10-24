@@ -15,10 +15,22 @@
             style="width: 180px">
     </select>
     <label style="float: left">环境：</label>
-    <select class="form-control select2-single" id="selectEnvironment"
-            style="width: 180px">
+    <select class="form-control select2-single" id="selectEnvironment" style="width: 180px">
+        {% for environment in environments %}
+            {% if environment.id == environment_id %}
+                <option value ="{{ environment.id }}" selected>{{ environment.name }}</option>
+                {% else %}
+        <option value ="{{ environment.id }} ">{{ environment.name }}</option>
+            {% endif %}
+
+
+            <!--{% if environment.id != environment_id %}-->
+                <!--<option value ="{{ environment.id }} ">{{ environment.name }}</option>-->
+            <!--{% endif %}-->
+            <!--<option value ="{{ environment.id }} ">{{ environment.name }}</option>-->
+            {% endfor %}
     </select>
-</select>
+
 </div>
 <div class="input-group" style="top:10px">
     <span class="input-group-addon">名称</span>
@@ -156,7 +168,7 @@ TestCaseInit();
     function saveFun() {
         var environment_id = $("#selectEnvironment").val();
         var local_url = document.location;
-        var cid = local_url.pathname.split("/")[3];
+        var cid = local_url.pathname.split("/")[2];
         var module_id = $('select[id="selectModule"]').val();
         //接口的基本数据
         var case_name = $("#case_name").val();

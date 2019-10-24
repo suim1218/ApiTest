@@ -8,8 +8,9 @@ BASE_PATH = settings.BASE_DIR.replace("\\", "/")
 
 EXTEND_DIR = BASE_PATH + "/tasks/"
 RUN_TASK = BASE_PATH + "/ApiManager/views/"
+from tasks.task_thread import TaskThread
 
-
+'''
 def write_project_case_data(pid):
     modules = Module.objects.filter(project_id=pid)
 
@@ -39,7 +40,7 @@ def write_project_case_data(pid):
             else:
                 assert_type = "mathches"
 
-            test_data[case.id] = {
+            test_data[case.name] = {
                 "url": case.url,
                 "method": method,
                 "header": case.header,
@@ -54,21 +55,22 @@ def write_project_case_data(pid):
 
             with(open(EXTEND_DIR + "test_data_list.json", "w", encoding='utf-8')) as f:
                 f.write(case_data)
+'''
 
 
 def run_project_task(request):
     if request.method == "POST":
         pid = request.POST.get("pid", "")
-        print(pid)
-        write_project_case_data(pid)
-        run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
-        print("运行的命令", run_cmd)
-        os.system(run_cmd)
+        # print(pid)
+        TaskThread(pid).run()
+
+        # write_project_case_data(pid)
+        # run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
+        # print("运行的命令", run_cmd)
+        # os.system(run_cmd)
         # sleep(2)
 
-        project = Project.objects.get(id=pid)
-        project.status = 2
-        project.save()
-        return JsonResponse({"message": "运行完成，请查看测试报告"})
-
-
+        # project = Project.objects.get(id=pid)
+        # project.status = 2
+        # project.save()
+        return JsonResponse({"message": "任务执行中，点击确定按钮任务在后台执行，执行完成会有提示"})

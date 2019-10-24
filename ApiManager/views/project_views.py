@@ -3,13 +3,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, render_to_response
 from ApiManager.models import Project, Module, TestCase
 
-import logging
-
-
-# Create your views here.
-
-# logger = logging.getLogger('HttpRunnerManager')
-
 
 def index(request):
     return render(request, 'base.html')

@@ -46,8 +46,8 @@ urlpatterns = [
     path('add_case/', case_views.add_case),
     path('case_debug/', case_views.case_debug),
     path('case_assert/', case_views.case_assert),
-    # path('get_case_info/', case_views.get_case_info),
-    path('edit_case/<int:eid>/', case_views.edit_case),
+    path('get_case_info/', case_views.get_case_info),
+    path('edit_case/<int:cid>/', case_views.edit_case),
     path('delete_case/<int:cid>/', case_views.delete_case),
     # path('get_case_environment_info/', case_views.get_case_environment_info),
 

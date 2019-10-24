@@ -99,6 +99,7 @@ def add_case(request):
     if request.method == "GET":
         return render(request, "add_case.html", {"environments": environment_all})
     if request.method == "POST":
+        environment_id = request.POST.get("environment_id", "")
         module_id = request.POST.get("module_id", "")
         case_name = request.POST.get("case_name", "")
         url = request.POST.get("url", "")
@@ -109,17 +110,6 @@ def add_case(request):
         assert_type = request.POST.get("ass_type", "")
         assert_text = request.POST.get("ass_text", "")
         cid = request.POST.get("cid", "")
-
-        # print("url", url)
-        # print("method", method)
-        # print("header", header)
-        # print("parameter_type", parameter_type)
-        # print("parameter_body", parameter_body)
-        # print("assert_type", assert_type)
-        # print("assert_text", assert_text)
-        # print("module_id", module_id)
-        # print("name", case_name)
-        # print("cid", cid)
 
         if case_name == "":
             return JsonResponse({"status": 10101, "message": "用例名称不能为空"})
@@ -157,12 +147,13 @@ def add_case(request):
             return JsonResponse({"status": 10104, "message": "未知的断言类型"})
 
         if cid == "":
-            TestCase.objects.create(name=case_name, module_id=module_id,
+            TestCase.objects.create(environment=environment_id, name=case_name, module_id=module_id,
                                     url=url, method=method_number, header=header,
                                     parameter_type=parameter_number, parameter_body=parameter_body,
                                     assert_type=assert_number, assert_text=assert_text)
         else:
             case = TestCase.objects.get(id=cid)
+            case.environment = environment_id
             case.name = case_name
             case.module_id = module_id
             case.url = url
@@ -180,8 +171,12 @@ def add_case(request):
         return JsonResponse({"status": 10100, "message": "请求方法错误"})
 
 
-def edit_case(request, eid):
-    return render(request, 'edit_case.html')
+def edit_case(request, cid):
+    environment_all = Environment.objects.all()
+    case = TestCase.objects.get(id=cid)
+    environment_id = case.environment
+    # print(environment_id)
+    return render(request, 'edit_case.html', {"environment_id": environment_id, "environments": environment_all})
 
 
 def get_case_info(request):

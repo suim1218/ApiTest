@@ -147,6 +147,7 @@ SelectInit();
     }
     //保存用例
     function saveFun() {
+        var environment_id = $("#selectEnvironment").val();
         var module_id = $('select[id="selectModule"]').val();
         //接口的基本数据
         var case_name = $("#case_name").val();
@@ -170,6 +171,7 @@ SelectInit();
             return;
         }
         $.post("/add_case/", {
+            environment_id:environment_id,
             module_id:module_id,
             case_name: case_name,
             url: url,

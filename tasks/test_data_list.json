@@ -1,11 +1,29 @@
 {
-    "12": {
-        "url": "project_list",
+    "test": {
+        "url": "project_list/",
         "method": "get",
         "header": "{}",
         "parameter_type": "form",
         "parameter_body": "{}",
         "assert_type": "contains",
-        "assert_text": "aa"
+        "assert_text": "a"
+    },
+    "test2": {
+        "url": "project_list/",
+        "method": "get",
+        "header": "{}",
+        "parameter_type": "form",
+        "parameter_body": "{}",
+        "assert_type": "contains",
+        "assert_text": "a"
+    },
+    "test3": {
+        "url": "project_list/",
+        "method": "get",
+        "header": "{}",
+        "parameter_type": "form",
+        "parameter_body": "{}",
+        "assert_type": "contains",
+        "assert_text": "a"
     }
 }
