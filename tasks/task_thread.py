@@ -63,45 +63,39 @@ class TaskThread:
                     f.write(case_data)
 
     def run_cases(self):
-        # if request.method == "POST":
-        #     pid = request.POST.get("pid", "")
-        #     print(pid)
         self.write_project_case_data()
         run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
         print("运行的命令", run_cmd)
         os.system(run_cmd)
-        # sleep(2)
 
-        project = Project.objects.get(id=self.pid)
-        project.status = 2
-        project.save()
-        return JsonResponse({"message": "运行完成，请查看测试报告"})
+        # project = Project.objects.get(id=self.pid)
+        # project.status = 2
+        # project.save()
+        # return JsonResponse({"message": "运行完成，请查看测试报告"})
 
-    def run_tasks(self):
-        print("创建线程任务...")
-        sleep(2)
-        threads = []
-        t1 = threading.Thread(target=self.run_cases)
-        threads.append(t1)
-
-        for t in threads:
-            t.start()
-
-        for t in threads:
-            t.join()
-
-    def run(self):
-        threads = []
-        t = threading.Thread(target=self.run_tasks)
-        threads.append(t)
-
-        for t in threads:
-            t.start()
-        return JsonResponse({"status": 10200, "message": "运行完成，请查看测试报告"})
+    # def run_tasks(self):
+    #     print("创建线程任务...")
+    #     threads = []
+    #     t1 = threading.Thread(target=self.run_cases)
+    #     threads.append(t1)
+    #
+    #     for t in threads:
+    #         t.start()
+    #
+    #     for t in threads:
+    #         t.join()
+    #
+    # def run(self):
+    #     threads = []
+    #     t = threading.Thread(target=self.run_tasks)
+    #     threads.append(t)
+    #
+    #     for t in threads:
+    #         t.start()
 
 
 if __name__ == '__main__':
     print("开始")
     # run()  # 丢给线程去运行任务
-    TaskThread(1).run()
+    # TaskThread(1).run()
     print("结束")

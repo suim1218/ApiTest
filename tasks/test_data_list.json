@@ -1,29 +1,11 @@
 {
-    "test": {
-        "url": "project_list/",
-        "method": "get",
+    "login": {
+        "url": "login",
+        "method": "post",
         "header": "{}",
         "parameter_type": "form",
-        "parameter_body": "{}",
+        "parameter_body": "{'username':'admin','password':'admin123456'}",
         "assert_type": "contains",
-        "assert_text": "a"
-    },
-    "test2": {
-        "url": "project_list/",
-        "method": "get",
-        "header": "{}",
-        "parameter_type": "form",
-        "parameter_body": "{}",
-        "assert_type": "contains",
-        "assert_text": "a"
-    },
-    "test3": {
-        "url": "project_list/",
-        "method": "get",
-        "header": "{}",
-        "parameter_type": "form",
-        "parameter_body": "{}",
-        "assert_type": "contains",
-        "assert_text": "a"
+        "assert_text": "success"
     }
 }

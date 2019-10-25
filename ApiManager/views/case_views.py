@@ -25,6 +25,9 @@ def case_debug(request):
 
         environment_obj = Environment.objects.get(id=environment_id)
         environment_address = environment_obj.address
+        print(environment_address)
+        # print(method)
+        print(par_type)
 
         if header == "":
             header = "{}"
@@ -39,21 +42,22 @@ def case_debug(request):
 
         try:
             payload = json.loads(par_body.replace("\'", "\""))
+
         except json.decoder.JSONDecodeError:
             return JsonResponse({"result": "参数类型错误"})
 
         result_text = None
         if method == "get":
-            r = requests.get(environment_address + '/' + url, params=payload, headers=header)
+            r = requests.get(environment_address + url, params=payload, headers=header)
             result_text = r.text
 
         if method == "post":
             if par_type == "form":
-                r = requests.post(environment_address + '/' + url, data=payload, headers=header)
+                r = requests.post(environment_address + url, data=payload, headers=header)
                 result_text = r.text
 
             if par_type == "json":
-                r = requests.post(environment_address + '/' + url, json=payload, headers=header)
+                r = requests.post(environment_address + url, json=payload, headers=header)
                 result_text = r.text
 
         return JsonResponse({"result": result_text})
@@ -120,6 +124,9 @@ def add_case(request):
         if assert_type == "" or assert_text == "":
             return JsonResponse({"status": 10102, "message": "断言的类型或文本不能为空"})
 
+        # print(parameter_body)
+        payload = parameter_body.replace("\"", "\'")
+        # print(payload)
         # ...
         if method == "get":
             method_number = 1
@@ -149,7 +156,7 @@ def add_case(request):
         if cid == "":
             TestCase.objects.create(environment=environment_id, name=case_name, module_id=module_id,
                                     url=url, method=method_number, header=header,
-                                    parameter_type=parameter_number, parameter_body=parameter_body,
+                                    parameter_type=parameter_number, parameter_body=payload,
                                     assert_type=assert_number, assert_text=assert_text)
         else:
             case = TestCase.objects.get(id=cid)
@@ -160,12 +167,12 @@ def add_case(request):
             case.method = method_number
             case.header = header
             case.parameter_type = parameter_number
-            case.parameter_body = parameter_body
+            case.parameter_body = payload
             case.assert_type = assert_number
             case.assert_text = assert_text
             case.save()
 
-        return JsonResponse({"status": 10200, "message": "创建成功！"})
+        return JsonResponse({"status": 10200, "message": "保存成功！"})
 
     else:
         return JsonResponse({"status": 10100, "message": "请求方法错误"})

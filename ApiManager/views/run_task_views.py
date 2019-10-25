@@ -62,7 +62,7 @@ def run_project_task(request):
     if request.method == "POST":
         pid = request.POST.get("pid", "")
         # print(pid)
-        TaskThread(pid).run()
+        TaskThread(pid).run_cases()
 
         # write_project_case_data(pid)
         # run_cmd = "python  " + EXTEND_DIR + "run_tests.py"
@@ -73,4 +73,4 @@ def run_project_task(request):
         # project = Project.objects.get(id=pid)
         # project.status = 2
         # project.save()
-        return JsonResponse({"message": "任务执行中，点击确定按钮任务在后台执行，执行完成会有提示"})
+        return JsonResponse({"message": "运行完成，请查看测试报告"})
